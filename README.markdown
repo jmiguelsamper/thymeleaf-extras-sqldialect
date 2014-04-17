@@ -18,7 +18,7 @@ Quick start
 1. Download source code
 2. Run `mvn jetty:run`
 3. Open [http://localhost:8080/](http://localhost:8080/)
-4. You can modify HTML files on `src/main/webapp` folder on the fly.
+4. You can modify HTML files on [src/main/webapp](https://github.com/jmiguelsamper/thymeleaf-extras-sqldialect/tree/master/src/main/webapp) folder on the fly.
 
 
 To do
