@@ -18,13 +18,13 @@ As a pastime, this example web application introduces a way of doing PHP-like we
 Quick start
 -----------
 
-- Download source code
-- Run 
+1. Download source code
+2. Run 
 ```
 mvn jetty:run
 ```
-- Open http://localhost:8080/
-- You can modify HTML files on src/main/webapp folder on the fly.
+3. Open [http://localhost:8080/](http://localhost:8080/)
+4. You can modify HTML files on `src/main/webapp` folder on the fly.
 
 
 To do
