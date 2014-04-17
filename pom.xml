@@ -2,12 +2,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.thymeleaf</groupId>
-    <artifactId>sqldialectexample</artifactId>
+    <groupId>org.thymeleafextras</groupId>
+    <artifactId>sqldialect</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>Thymeleaf SQL dialect example</name>
+    <name>Thymeleaf SQL dialect and example application</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
