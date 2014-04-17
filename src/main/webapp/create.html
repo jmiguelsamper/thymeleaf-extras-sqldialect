@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Product created</title>
+		<meta charset="UTF-8" />
+		<meta th:replace="/database.html :: #connection" />
+        <link rel="stylesheet" href="main.css" />
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" />
+	</head>
+	<body>
+        <div class="container">
+            <h1>Product created</h1>
+            <div sql:update="INSERT INTO products(description, price) VALUES(?,?)"
+                 sql:params="${param.description}, ${param.price}"
+                 class="alert alert-success">
+                <span th:text="${result}">3</span> row has been inserted.
+            </div>
+            <a href="index.html" class="btn btn-default">
+                <span class="glyphicon glyphicon-ok"></span> Continue
+            </a>
+        </div>    
+	</body>
+</html>

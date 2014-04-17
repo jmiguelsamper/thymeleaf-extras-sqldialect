@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Product edition</title>
+		<meta charset="UTF-8" />
+		<meta th:replace="/database.html :: #connection" />
+        <link rel="stylesheet" href="main.css" />
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" />
+	</head>
+	<body>
+        <div class="container">
+            <h1>Product edition</h1>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form action="save.html" method="post"
+                          role="form"
+                          sql:query="SELECT id, description, price FROM products WHERE id=?"
+                          sql:params="${param.id}">
+                        <input type="hidden" name="id" th:value="${row.ID}" />
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" id="description" name="description" th:value="${row.DESCRIPTION}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="text" id="price" name="price" size="8" th:value="${row.PRICE}" />
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-ok"></span> Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <a href="index.html" class="btn btn-default">
+                <span class="glyphicon glyphicon-arrow-left"></span> Back
+            </a>
+        </div>    
+	</body>
+</html>

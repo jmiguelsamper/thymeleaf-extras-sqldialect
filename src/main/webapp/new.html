@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Product creation</title>
+		<meta charset="UTF-8" />
+		<meta th:replace="/database.html :: #connection" />
+        <link rel="stylesheet" href="main.css" />
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" />
+	</head>
+	<body>
+        <div class="container">
+            <h1>Product creation</h1>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form action="create.html" method="post"
+                          role="form">
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" id="description" name="description" />
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="text" id="price" name="price" size="8" />
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-ok"></span> Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <a href="index.html" class="btn btn-default">
+                <span class="glyphicon glyphicon-arrow-left"></span> Back
+            </a>
+        </div>    
+	</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Product list</title>
+		<meta charset="UTF-8" />
+		<meta th:replace="/database.html :: #connection" />
+        <link rel="stylesheet" href="main.css" />
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" />
+    </head>
+	<body>
+        <div class="container">
+            <h1>Product list</h1>
+            <table class="table table-hover" 
+                sql:query="SELECT id, description, price FROM products">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th class="icon-column"></th>
+                        <th class="icon-column"></th>
+                        <th class="icon-column"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="row : ${rows}">
+                        <td th:text="${row.DESCRIPTION}">Table</td>
+                        <td th:text="|£ ${row.PRICE}|">£ 250</td>
+                        <td>
+                            <a href="view.html"
+                               th:href="@{/view.html(id = ${row.ID})}"
+                               class="btn btn-default">
+                                <span class="glyphicon glyphicon-zoom-in"></span> View detail
+                            </a>
+                        </td>
+                        <td>
+                            <a href="edit.html"
+                               th:href="@{/edit.html(id = ${row.ID})}"
+                               class="btn btn-default">
+                                <span class="glyphicon glyphicon-edit"></span> Edit
+                            </a>
+                        </td>
+                        <td>
+                            <form action="delete.html" method="post" class="form-inline"
+                                  onsubmit="return confirm('The product will be removed')">
+                                <input type="hidden" name="id" th:value="${row.ID}" />
+                                <button type="submit" class="btn btn-warning">
+                                    <span class="glyphicon glyphicon-remove"></span> Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="new.html"
+               class="btn btn-default">
+                <span class="glyphicon glyphicon-plus"></span> Create new product
+            </a>
+        </div>
+	</body>
+</html>
