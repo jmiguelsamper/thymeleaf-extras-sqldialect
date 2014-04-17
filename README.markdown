@@ -1,8 +1,5 @@
-
 SQL Thymeleaf Dialect and Example
 =================================
-
-------------------------------------------------------------------------------
 
 Overview
 --------
@@ -19,10 +16,7 @@ Quick start
 -----------
 
 1. Download source code
-2. Run 
-```
-mvn jetty:run
-```
+2. Run `mvn jetty:run`
 3. Open [http://localhost:8080/](http://localhost:8080/)
 4. You can modify HTML files on `src/main/webapp` folder on the fly.
 
