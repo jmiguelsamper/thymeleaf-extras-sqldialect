@@ -1,35 +1,33 @@
 package org.thymeleafextras.sqldialect.command;
 
-import java.util.HashMap;
-import java.util.Map;
-import org.thymeleaf.Arguments;
-import org.thymeleaf.util.Validate;
 import static org.thymeleafextras.sqldialect.util.ArrayExpressionUtil.valueOrFirstElement;
+
+import org.thymeleaf.context.ITemplateContext;
+import org.thymeleaf.context.WebEngineContext;
+import org.thymeleaf.util.Validate;
 
 /**
  * Parses SQL parameters.
  */
 public class ParamsCommand {
 
-    public static final String PARAMS_ATTR_NAME = "org.thymeleaf.extra.sqldialect.params_attribute";
+	public static final String PARAMS_ATTR_NAME = "org.thymeleaf.extra.sqldialect.params_attribute";
 
-    private final Arguments arguments;
-    private final String[] parameters;
-    private final Object[] processedParameters;;
+	private final String[] parameters;
+	private final Object[] processedParameters;
+	private final WebEngineContext context;
 
-    public ParamsCommand(Arguments arguments, String parameterString) {
-        this.arguments = arguments;
-        Validate.notEmpty(parameterString, "Parameters were not supplied");
-        this.parameters = parameterString.split(",");
-        this.processedParameters = new Object[parameters.length];
-    }
+	public ParamsCommand(ITemplateContext ctx, String parameterString) {
+		Validate.notEmpty(parameterString, "Parameters were not supplied");
+		parameters = parameterString.split(",");
+		processedParameters = new Object[parameters.length];
+		context = (WebEngineContext) ctx;
+	}
 
-    public Map<String, Object> execute() {
-        for (int i = 0; i < parameters.length; i++) {
-            processedParameters[i] = valueOrFirstElement(arguments, parameters[i]);
-        }
-        Map<String, Object> variables = new HashMap<String, Object>();
-        variables.put(PARAMS_ATTR_NAME, processedParameters);
-        return variables;
-    }
+	public void execute() {
+		for (int i = 0; i < parameters.length; i++) {
+			processedParameters[i] = valueOrFirstElement(context, parameters[i]);
+		}
+		context.setVariable(PARAMS_ATTR_NAME, processedParameters);
+	}
 }

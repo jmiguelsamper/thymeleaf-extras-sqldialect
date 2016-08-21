@@ -12,8 +12,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <thymeleaf.version>2.1.2.RELEASE</thymeleaf.version>
-        <spring.version>4.0.2.RELEASE</spring.version>
+        <thymeleaf.version>3.0.1.RELEASE</thymeleaf.version>
+        <spring.version>4.3.2.RELEASE</spring.version>
     </properties>
 	
     <dependencies>
@@ -55,17 +55,17 @@
             <artifactId>javassist</artifactId>
             <version>3.18.1-GA</version>
         </dependency>
-        <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-            <version>2.3.2</version>
-        </dependency>
         <!-- Test dependencies -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.12</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+        	<groupId>org.hsqldb</groupId>
+        	<artifactId>hsqldb</artifactId>
+        	<version>2.3.2</version>
         </dependency>
     </dependencies>
 
