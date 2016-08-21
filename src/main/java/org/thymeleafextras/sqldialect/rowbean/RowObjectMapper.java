@@ -15,7 +15,6 @@ public class RowObjectMapper implements RowMapper<Object> {
         this.rowPopulator = rowPopulator;
     }
 
-    @Override
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
         Object[] values = new Object[rowPopulator.numberOfFields()];
         for (int i = 0; i < values.length; i++) {
@@ -24,4 +23,5 @@ public class RowObjectMapper implements RowMapper<Object> {
         }
         return rowPopulator.buildRowBean(values);
     }
+
 }

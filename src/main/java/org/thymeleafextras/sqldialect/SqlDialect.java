@@ -2,28 +2,36 @@ package org.thymeleafextras.sqldialect;
 
 import java.util.HashSet;
 import java.util.Set;
-import org.thymeleaf.dialect.AbstractXHTMLEnabledDialect;
+
+import org.thymeleaf.dialect.IProcessorDialect;
 import org.thymeleaf.processor.IProcessor;
 
 /**
  * Thymeleaf dialect that provides direct SQL execution.
  */
-public class SqlDialect extends AbstractXHTMLEnabledDialect {
+public class SqlDialect implements IProcessorDialect {
 
-    public static final String ATTR_PREFIX = "sql";
+	public static final String ATTR_PREFIX = "sql";
+	public static final String NAME = "SqlDialect";
 
-    @Override
-    public String getPrefix() {
-        return ATTR_PREFIX;
-    }
+	public String getPrefix() {
+		return ATTR_PREFIX;
+	}
 
-    @Override
-    public Set<IProcessor> getProcessors() {
-        Set<IProcessor> attrProcessors = new HashSet<IProcessor>();
-        attrProcessors.add(new ConnectionAttrProcessor());
-        attrProcessors.add(new ParamsAttrProcessor());
-        attrProcessors.add(new QueryAttrProcessor());
-        attrProcessors.add(new UpdateAttrProcessor());
-        return attrProcessors;
-    }
+	public int getDialectProcessorPrecedence() {
+		return 0;
+	}
+
+	public Set<IProcessor> getProcessors(String dialectPrefix) {
+		Set<IProcessor> attrProcessors = new HashSet<IProcessor>();
+		attrProcessors.add(new ConnectionAttrProcessor(dialectPrefix));
+		attrProcessors.add(new ParamsAttrProcessor(dialectPrefix));
+		attrProcessors.add(new QueryAttrProcessor(dialectPrefix));
+		attrProcessors.add(new UpdateAttrProcessor(dialectPrefix));
+		return attrProcessors;
+	}
+
+	public String getName() {
+		return NAME;
+	}
 }

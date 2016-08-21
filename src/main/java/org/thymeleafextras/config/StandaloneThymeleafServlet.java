@@ -35,7 +35,7 @@ import org.thymeleaf.spring4.dialect.SpringStandardDialect;
 			value = ""),
 		@WebInitParam(
 			name = StandaloneThymeleafServlet.INIT_PARAM_TEMPLATEMODE,
-			value = "HTML5")
+			value = "HTML")
 	},
 	urlPatterns = {
 		"/", "*.html"
@@ -43,6 +43,7 @@ import org.thymeleaf.spring4.dialect.SpringStandardDialect;
 )
 public class StandaloneThymeleafServlet extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
 	public static final String DEFAULT_PAGE            = "index.html";
 	public static final String INIT_PARAM_PREFIX       = "prefix";
 	public static final String INIT_PARAM_SUFFIX       = "suffix";
@@ -58,7 +59,7 @@ public class StandaloneThymeleafServlet extends HttpServlet {
 	public void init() {
 		ServletConfig config = this.getServletConfig();
 
-		ServletContextTemplateResolver templateresolver = new ServletContextTemplateResolver();
+		ServletContextTemplateResolver templateresolver = new ServletContextTemplateResolver(this.getServletContext());
 		templateresolver.setPrefix(config.getInitParameter(INIT_PARAM_PREFIX));
 		templateresolver.setSuffix(config.getInitParameter(INIT_PARAM_SUFFIX));
 		templateresolver.setTemplateMode(config.getInitParameter(INIT_PARAM_TEMPLATEMODE));
@@ -71,7 +72,6 @@ public class StandaloneThymeleafServlet extends HttpServlet {
 		dialects.add(new SpringStandardDialect());
 		dialects.add(new SqlDialect());
         templateengine.setDialects(dialects);
-        templateengine.initialize();
 	}
 
 	@Override

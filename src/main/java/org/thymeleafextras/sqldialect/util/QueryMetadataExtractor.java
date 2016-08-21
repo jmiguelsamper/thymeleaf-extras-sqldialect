@@ -36,7 +36,7 @@ public class QueryMetadataExtractor {
             for (int i = 0; i < fields.length; i++) {
                 int sqlColumnIndex = i + 1;
                 int columnTypeIndex = metadata.getColumnType(sqlColumnIndex);
-                Class columnType = convert(columnTypeIndex);
+                Class<?> columnType = convert(columnTypeIndex);
                 fields[i] = new FieldInfo(metadata.getColumnLabel(sqlColumnIndex), columnType);
             }
             ps.close();

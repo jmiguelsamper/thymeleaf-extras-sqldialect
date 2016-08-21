@@ -1,39 +1,39 @@
 package org.thymeleafextras.sqldialect.command;
 
-import java.util.HashMap;
-import java.util.Map;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.thymeleaf.Arguments;
-import org.thymeleaf.util.Validate;
 import static org.thymeleafextras.sqldialect.command.ConnectionCommand.CONNECTION_ATTR_NAME;
 import static org.thymeleafextras.sqldialect.command.ParamsCommand.PARAMS_ATTR_NAME;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.thymeleaf.context.ITemplateContext;
+import org.thymeleaf.context.WebEngineContext;
+import org.thymeleaf.util.Validate;
 
 /**
  * Executes a SQL update statement.
  */
 public class UpdateCommand {
 
-    private static final String RESULT_VARIABLE = "result";
+	private static final String RESULT_VARIABLE = "result";
 
-    private final String query;
-    private final JdbcTemplate jdbcTemplate;
-    private final Object[] params;
+	private final String query;
+	private final JdbcTemplate jdbcTemplate;
+	private final Object[] params;
+	private final WebEngineContext context;
 
-    public UpdateCommand(Arguments arguments, String query) {
-        Validate.notEmpty(query, "SQL statement was not supplied");
-        this.query = query;
-        this.jdbcTemplate = (JdbcTemplate) arguments.getContext().getVariables().get(CONNECTION_ATTR_NAME);
-        this.params = (Object[]) arguments.getLocalVariable(PARAMS_ATTR_NAME);
-    }
+	public UpdateCommand(ITemplateContext ctx, String value) {
+		Validate.notEmpty(value, "SQL statement was not supplied");
+		context = (WebEngineContext) ctx;
+		query = value;
+		jdbcTemplate = (JdbcTemplate) ctx.getVariable(CONNECTION_ATTR_NAME);
+		params = (Object[]) ctx.getVariable(PARAMS_ATTR_NAME);
+	}
 
-    public Map<String, Object> execute() {
-        Map<String, Object> variables = new HashMap<String, Object>();
-        int result = executeUpdate();
-        variables.put(RESULT_VARIABLE, result);
-        return variables;
-    }
+	public void execute() {
+		int result = executeUpdate();
+		context.setVariable(RESULT_VARIABLE, result);
+	}
 
-    private int executeUpdate() {
-        return jdbcTemplate.update(query, params);
-    }
+	private int executeUpdate() {
+		return jdbcTemplate.update(query, params);
+	}
 }

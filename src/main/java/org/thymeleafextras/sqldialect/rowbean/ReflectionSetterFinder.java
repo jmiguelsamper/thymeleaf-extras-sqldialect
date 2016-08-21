@@ -8,17 +8,17 @@ import static org.thymeleafextras.sqldialect.rowbean.GetterSetterUtil.setterName
  */
 public class ReflectionSetterFinder {
 
-    private final Class targetClass;
+    private final Class<?> targetClass;
 
-    private ReflectionSetterFinder(Class targetClass) {
+    private ReflectionSetterFinder(Class<?> targetClass) {
         this.targetClass = targetClass;
     }
 
-    public static ReflectionSetterFinder forClass(Class targetClass) {
+    public static ReflectionSetterFinder forClass(Class<?> targetClass) {
         return new ReflectionSetterFinder(targetClass);
     }
 
-    public Method setterLike(String fieldName, Class fieldClass) {
+    public Method setterLike(String fieldName, Class<?> fieldClass) {
         String setterName = setterNameFor(fieldName);
         try {
             return targetClass.getMethod(setterName, fieldClass);

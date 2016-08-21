@@ -1,43 +1,37 @@
 package org.thymeleafextras.sqldialect;
 
+import org.thymeleaf.context.ITemplateContext;
+import org.thymeleaf.engine.AttributeName;
+import org.thymeleaf.model.IProcessableElementTag;
+import org.thymeleaf.processor.element.AbstractAttributeTagProcessor;
+import org.thymeleaf.processor.element.IElementTagStructureHandler;
+import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleafextras.sqldialect.command.QueryCommand;
-import java.util.Map;
-import org.thymeleaf.Arguments;
-import org.thymeleaf.dom.Element;
-import org.thymeleafextras.sqldialect.util.ExpressionUtil;
-import org.thymeleaf.processor.ProcessorResult;
-import org.thymeleaf.processor.attr.AbstractAttrProcessor;
 
 /**
- * Executes an SQL query and stores the result in a variable called 'rows' (or 'row' if it is a single one).
+ * Executes an SQL query and stores the result in a variable called 'rows' (or
+ * 'row' if it is a single one).
  *
  * Usage:
+ * 
  * <pre>
  * {@code
  *    <html sql:query="SELECT id, description, price FROM products">
  * }
  * </pre>
  */
-public class QueryAttrProcessor extends AbstractAttrProcessor {
+public class QueryAttrProcessor extends AbstractAttributeTagProcessor {
 
-    public static final String ATTR_NAME = "query";
-    public static final int PRECEDENCE = 1000;
+	public static final String ATTR_NAME = "query";
+	public static final int ATTR_PRECEDENCE = 1000;
 
-    public QueryAttrProcessor() {
-        super(ATTR_NAME);
-    }
+	public QueryAttrProcessor(final String dialectPrefix) {
+		super(TemplateMode.HTML, dialectPrefix, null, false, ATTR_NAME, true, ATTR_PRECEDENCE, true);
+	}
 
-    @Override
-    public int getPrecedence() {
-        return PRECEDENCE;
-    }
-
-    @Override
-    public ProcessorResult processAttribute(Arguments arguments, Element element, String attributeName) {
-        String value = element.getAttributeValue(attributeName);
-        String query = ExpressionUtil.expressionValue(arguments, value).toString();
-        element.removeAttribute(attributeName);
-        Map<String, Object> variables = new QueryCommand(arguments, query).execute();
-        return ProcessorResult.setLocalVariables(variables);
-    }
+	@Override
+	protected void doProcess(ITemplateContext context, IProcessableElementTag tag, AttributeName attributeName,
+			String attributeValue, IElementTagStructureHandler structureHandler) {
+		new QueryCommand(context, attributeValue).execute();
+	}
 }
